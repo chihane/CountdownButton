@@ -16,6 +16,8 @@ public class CountdownButton extends Button implements View.OnClickListener {
     private Config config;
     private CountdownTimer timer;
 
+    private boolean isCountingDown = false;
+
     public CountdownButton(Context context) { this(context, null); }
     public CountdownButton(Context context, AttributeSet attrs) { this(context, attrs, 0); }
     public CountdownButton(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -67,6 +69,8 @@ public class CountdownButton extends Button implements View.OnClickListener {
     }
 
     public void startCountdown() {
+        isCountingDown = true;
+
         if (config.disableOnCountdown) {
             disable();
         }
@@ -145,6 +149,7 @@ public class CountdownButton extends Button implements View.OnClickListener {
         public void onFinish() {
             updateText(0);
             enable();
+            isCountingDown = false;
         }
     }
 
@@ -239,6 +244,10 @@ public class CountdownButton extends Button implements View.OnClickListener {
 
     public int getInterval() {
         return config.interval;
+    }
+
+    public boolean isCountingDown() {
+        return isCountingDown;
     }
     /*----------------------Getters&Setters----------------------*/
 }
