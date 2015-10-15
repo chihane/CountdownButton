@@ -69,8 +69,6 @@ public class CountdownButton extends Button implements View.OnClickListener {
     }
 
     public void startCountdown() {
-        isCountingDown = true;
-
         if (config.disableOnCountdown) {
             disable();
         }
@@ -96,6 +94,8 @@ public class CountdownButton extends Button implements View.OnClickListener {
         }
         timer = new CountdownTimer(countdown, interval);
         timer.start();
+
+        isCountingDown = true;
     }
 
     public void cancelCountdown() {
