@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CountdownButton">
+        <attr name="disableOnCountdown" format="boolean" />
+        <attr name="startOnClick" format="boolean" />
+        <attr name="countdown" format="integer" />
+        <attr name="timeUnit" format="enum">
+            <enum name="millisecond" value="0" />
+            <enum name="second" value="1" />
+        </attr>
+        <attr name="interval" format="integer" />
+        <attr name="prefix" format="string" />
+        <attr name="suffix" format="string" />
+    </declare-styleable>
+</resources>
