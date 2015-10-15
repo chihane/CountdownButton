@@ -23,7 +23,7 @@ In the root element of your layout file (like `activity_main.xml`), declare the 
         xmlns:app="http://schemas.android.com/apk/res-auto" <!-- this line -->
         ......>
         
-Here are several attributes supported in `V1.0`:
+Here are several attributes supported in current version:
 
     <mlxy.countdownbutton.CountdownButton
         app:countdown="10"              <!-- total countdown time -->
