@@ -58,9 +58,9 @@ Or cancel it at any time by:
 
     countdownButton.cancelCountdown();
     
-*\*Only use `CountdownButton.setDisableOnCountdown(boolean)` when you really need it, it still have some glitches that I can't deal with.*
+***Only use `CountdownButton.setDisableOnCountdown(boolean)` when you really need it, it still have some glitches that I can't deal with.**
 
-*\*Try not to mess with `View.setEnabled(boolean)`, I don't know what will happen.*
+***Try not to mess with `View.setEnabled(boolean)`, I don't know what will happen.**
 
 ###**For further details, see `app` module.**
 
