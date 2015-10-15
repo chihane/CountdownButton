@@ -4,9 +4,9 @@ An Android library, provides a Button with a countdown timer.
 
 ##Samples
 
-<img src="http://github.com/mlxy/CountdownButton/raw/master/sample/sample1.jpg" width = "480" height = "854" alt="sample1" align=center />
+<img src="http://raw.github.com/mlxy/CountdownButton/master/sample/sample1.jpg" width = "480" height = "854" alt="sample1" align=center />
 
-<img src="http://github.com/mlxy/CountdownButton/raw/master/sample/sample2.jpg" width = "480" height = "854" alt="sample2" align=center />
+<img src="http://raw.github.com/mlxy/CountdownButton/master/sample/sample2.jpg" width = "480" height = "854" alt="sample2" align=center />
 
 ##Integration
 
