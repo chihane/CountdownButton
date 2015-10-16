@@ -258,9 +258,10 @@ public class CountdownButton extends Button implements View.OnClickListener {
         return config.suffix;
     }
 
-    public void setKeepCountingDownInBackground(boolean keepCountingDownInBackground) {
-        config.keepCountingDownInBackground = keepCountingDownInBackground;
-    }
+    /* Does't work very well. */
+//    public void setKeepCountingDownInBackground(boolean keepCountingDownInBackground) {
+//        config.keepCountingDownInBackground = keepCountingDownInBackground;
+//    }
 
     public boolean keepCountingDownInBackground() {
         return config.keepCountingDownInBackground;
