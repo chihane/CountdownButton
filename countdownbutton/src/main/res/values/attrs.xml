@@ -11,5 +11,6 @@
         <attr name="interval" format="integer" />
         <attr name="prefix" format="string" />
         <attr name="suffix" format="string" />
+        <attr name="keepCountingDownInBackground" format="boolean" />
     </declare-styleable>
 </resources>
