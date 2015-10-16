@@ -26,17 +26,18 @@ In the root element of your layout file (like `activity_main.xml`), declare the 
 Here are several attributes supported in current version:
 
     <mlxy.countdownbutton.CountdownButton
-        app:countdown="10"              <!-- total countdown time -->
-        app:disableOnCountdown="true"   <!-- if the button will be disabled when countdown starts -->
-        app:interval="1"                <!-- interval between CountdownButton updates its text -->
-        app:prefix="Retry in "          <!-- prefix of the button text when counting down -->
-        app:startOnClick="true"         <!-- if countdown starts right after button clicked -->
-        app:suffix=" second(s)"         <!-- suffix of the button text when counting down -->
-        app:timeUnit="second" />        <!-- yes, time unit -->
+        app:countdown="10"              		<!-- total countdown time -->
+        app:disableOnCountdown="true"   		<!-- if the button will be disabled when countdown starts -->
+        app:interval="1"                		<!-- interval between CountdownButton updates its text -->
+        app:prefix="Retry in "          		<!-- prefix of the button text when counting down -->
+        app:startOnClick="true"         		<!-- if countdown starts right after button clicked -->
+        app:suffix=" second(s)"         		<!-- suffix of the button text when counting down -->
+		app:keepCountingDownInBackground="true" <!-- to avoid sms bomb etc. -->
+        app:timeUnit="second" />        		<!-- yes, time unit -->
         
 ##In code
 
-Instantiate a instance by `findViewById()` or Constructor and configure like this:
+Instantiate a instance by `findViewById()` or Constructor and configure with these APIs:
 
     countdownButton.setPrefix("I'm prefix");
     countdownButton.setSuffix("I'm suffix");
