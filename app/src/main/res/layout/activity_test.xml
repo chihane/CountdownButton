@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <mlxy.countdownbutton.CountdownButton
+        app:keepCountingDownInBackground="true"
+        android:background="@drawable/bg_button"
+        android:padding="8dp"
+        android:text="keepCountingDownInBackground=true"
+        app:countdown="10"
+        app:disableOnCountdown="true"
+        app:interval="1"
+        app:prefix="Retry in "
+        app:startOnClick="true"
+        app:suffix=" second(s)"
+        app:timeUnit="second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <mlxy.countdownbutton.CountdownButton
+        app:keepCountingDownInBackground="false"
+        android:background="@drawable/bg_button"
+        android:padding="8dp"
+        android:text="keepCountingDownInBackground=false"
+        app:countdown="10"
+        app:disableOnCountdown="true"
+        app:interval="1"
+        app:prefix="Retry in "
+        app:startOnClick="true"
+        app:suffix=" second(s)"
+        app:timeUnit="second"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+</LinearLayout>

@@ -1,5 +1,6 @@
 package mlxy.countdownbuttondemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -54,6 +55,13 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        findViewById(R.id.buttonNewActivity).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, TestActivity.class));
+            }
+        });
+
         setConfigs();
     }
 
@@ -77,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         countdownButton.setText(edittextText.getText().toString());
 
         EditText edittextCountdown = (EditText) findViewById(R.id.edittextCountdown);
-        countdownButton.setCountdown(Integer.parseInt(edittextCountdown.getText().toString()));
+        countdownButton.setCountdown(Long.parseLong(edittextCountdown.getText().toString()));
 
         EditText edittextInterval = (EditText) findViewById(R.id.edittextInterval);
         countdownButton.setInterval(Integer.parseInt(edittextInterval.getText().toString()));
