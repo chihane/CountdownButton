@@ -8,7 +8,7 @@ android {
         minSdkVersion 8
         targetSdkVersion 23
         versionCode 1
-        versionName "1.1"
+        versionName "1.2"
     }
     buildTypes {
         release {
@@ -25,7 +25,7 @@ dependencies {
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.1"
+version = "1.2"
 def siteUrl = 'https://github.com/mlxy/CountdownButton'
 def gitUrl = 'https://github.com/mlxy/CountdownButton.git'
 
@@ -33,7 +33,6 @@ group = "mlxy.countdownbutton"
 
 install {
     repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
         pom {
             project {
                 packaging 'aar'
