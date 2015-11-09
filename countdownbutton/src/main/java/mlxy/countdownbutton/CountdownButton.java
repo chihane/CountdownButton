@@ -104,6 +104,7 @@ public class CountdownButton extends Button implements View.OnClickListener {
                             break;
                     }
 
+                    clearState();
                     startCountdown();
                 }
             }
@@ -148,6 +149,7 @@ public class CountdownButton extends Button implements View.OnClickListener {
 
     public void cancelCountdown() {
         enable();
+        clearState();
         if (timer != null) {
             timer.cancel();
         }
