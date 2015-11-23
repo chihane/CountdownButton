@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 8
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.2"
+        versionCode 4
+        versionName "1.3"
     }
     buildTypes {
         release {
@@ -25,7 +25,7 @@ dependencies {
 apply plugin: 'com.github.dcendents.android-maven'
 apply plugin: 'com.jfrog.bintray'
 
-version = "1.2"
+version = "1.3"
 def siteUrl = 'https://github.com/mlxy/CountdownButton'
 def gitUrl = 'https://github.com/mlxy/CountdownButton.git'
 
