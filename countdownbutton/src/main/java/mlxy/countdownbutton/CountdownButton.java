@@ -14,6 +14,7 @@ public class CountdownButton extends Button implements View.OnClickListener {
     private static final String PREFS_KEY_IS_COUNTING_DOWN = "CountdownButton_is_counting_down";
     private static final String PREFS_KEY_TERMINAL_TIME = "CountdownButton_terminal_time";
 
+    private Config initialConfig;
     private Config config;
     private CountdownTimer timer;
 
@@ -23,9 +24,8 @@ public class CountdownButton extends Button implements View.OnClickListener {
     public CountdownButton(Context context, AttributeSet attrs) { this(context, attrs, 0); }
     public CountdownButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        setSaveEnabled(true);
         super.setOnClickListener(this);
-        
+
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CountdownButton);
         initConfig(a);
         restoreState();
@@ -33,6 +33,7 @@ public class CountdownButton extends Button implements View.OnClickListener {
 
     private void initConfig(TypedArray typedArray) {
         config = new Config();
+        initialConfig = new Config();
 
         if (typedArray != null) {
             config.textNormal = getText().toString();
@@ -52,6 +53,8 @@ public class CountdownButton extends Button implements View.OnClickListener {
             config.countdown = countdownString != null ? Long.valueOf(countdownString) : Config.DEFAULT_COUNTDOWN;
 
             typedArray.recycle();
+
+            initialConfig = config.clone();
         }
     }
 
@@ -87,8 +90,8 @@ public class CountdownButton extends Button implements View.OnClickListener {
         boolean isCountingDown = Prefs.get(getContext(), PREFS_KEY_IS_COUNTING_DOWN, false);
         if (isCountingDown) {
 
-            long terminalTime = Prefs.get(getContext(), PREFS_KEY_TERMINAL_TIME, -1l);
-            if (terminalTime != -1l) {
+            long terminalTime = Prefs.get(getContext(), PREFS_KEY_TERMINAL_TIME, -1L);
+            if (terminalTime != -1L) {
 
                 long timeRemain = terminalTime - System.currentTimeMillis();
                 if (timeRemain > 0) {
@@ -104,7 +107,6 @@ public class CountdownButton extends Button implements View.OnClickListener {
                             break;
                     }
 
-                    clearState();
                     startCountdown();
                 }
             }
@@ -118,7 +120,7 @@ public class CountdownButton extends Button implements View.OnClickListener {
 
     public void startCountdown() {
         if (config.disableOnCountdown) {
-            disable();
+            setEnabled(false);
         }
 
         if (timer != null) {
@@ -148,12 +150,10 @@ public class CountdownButton extends Button implements View.OnClickListener {
     }
 
     public void cancelCountdown() {
-        enable();
-        clearState();
         if (timer != null) {
             timer.cancel();
         }
-        updateText(0);
+        initialize();
     }
 
     private void updateText(long millisUntilFinished) {
@@ -175,16 +175,12 @@ public class CountdownButton extends Button implements View.OnClickListener {
         }
     }
 
-    private void enable() {
-        if (!isEnabled()) {
-            setEnabled(true);
-        }
-    }
-
-    private void disable() {
-        if (isEnabled()) {
-            setEnabled(false);
-        }
+    private void initialize() {
+        updateText(0);
+        setEnabled(true);
+        clearState();
+        isCountingDown = false;
+        config = initialConfig.clone();
     }
 
     class CountdownTimer extends CountDownTimer {
@@ -197,14 +193,11 @@ public class CountdownButton extends Button implements View.OnClickListener {
 
         @Override
         public void onFinish() {
-            updateText(0);
-            enable();
-            isCountingDown = false;
-            clearState();
+            initialize();
         }
     }
 
-    static class Config {
+    static class Config implements Cloneable {
         public static final CharSequence DEFAULT_TEXT = "";
         public static final CharSequence DEFAULT_PREFIX = "";
         public static final CharSequence DEFAULT_SUFFIX = "";
@@ -241,6 +234,23 @@ public class CountdownButton extends Button implements View.OnClickListener {
         int timeUnit;
         int interval;
 //        public DateFormat
+
+
+        @Override
+        public Config clone() {
+            Config config = null;
+
+            try {
+                config = (Config) super.clone();
+                config.textNormal = textNormal.subSequence(0, textNormal.length());
+                config.prefix = prefix.subSequence(0, prefix.length());
+                config.suffix = suffix.subSequence(0, suffix.length());
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+
+            return config;
+        }
     }
 
     /*----------------------Getters&Setters----------------------*/
@@ -313,58 +323,4 @@ public class CountdownButton extends Button implements View.OnClickListener {
         return isCountingDown;
     }
     /*----------------------Getters&Setters----------------------*/
-
-//    @Override
-//    public Parcelable onSaveInstanceState() {
-//        Parcelable superState = super.onSaveInstanceState();
-//        SavedState savedState = new SavedState(superState);
-//        savedState.time = System.currentTimeMillis();
-//        return savedState;
-//    }
-//
-//    @Override
-//    public void onRestoreInstanceState(Parcelable state) {
-//        if (state instanceof SavedState) {
-//            SavedState savedState = (SavedState) state;
-//            super.onRestoreInstanceState(savedState.getSuperState());
-//            restoreState(savedState.time);
-//        }
-//    }
-//
-//    private void restoreState(long time) {
-//        // TODO startcountdown()
-//        Toast.makeText(getContext(), time+"", Toast.LENGTH_SHORT).show();
-//    }
-//
-//    static class SavedState extends BaseSavedState {
-//        long time;
-//
-//        SavedState(Parcelable superState) {
-//            super(superState);
-//        }
-//
-//        private SavedState(Parcel source) {
-//            super(source);
-//            time = source.readInt();
-//        }
-//
-//        @Override
-//        public void writeToParcel(Parcel out, int flags) {
-//            super.writeToParcel(out, flags);
-//            out.writeLong(time);
-//        }
-//
-//        public static final Parcelable.Creator<SavedState> CREATOR =
-//                new Parcelable.Creator<SavedState>() {
-//                    @Override
-//                    public SavedState createFromParcel(Parcel source) {
-//                        return new SavedState(source);
-//                    }
-//
-//                    @Override
-//                    public SavedState[] newArray(int size) {
-//                        return new SavedState[size];
-//                    }
-//                };
-//    }
 }
