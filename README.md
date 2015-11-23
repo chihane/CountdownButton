@@ -12,7 +12,7 @@ An Android library, provides a Button with a countdown timer.
 
 Add the following line to the `dependencies` section of `build.gradle`.
 
-    compile 'mlxy.countdownbutton:countdownbutton:1.2'
+    compile 'mlxy.countdownbutton:countdownbutton:1.3'
     
 ##Use XML Attributes
 
