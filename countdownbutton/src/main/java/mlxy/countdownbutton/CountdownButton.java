@@ -18,6 +18,8 @@ public class CountdownButton extends Button implements View.OnClickListener {
     private Config config;
     private CountdownTimer timer;
 
+    private OnCountingDownListener listener;
+
     private boolean isCountingDown = false;
 
     public CountdownButton(Context context) { this(context, null); }
@@ -184,17 +186,32 @@ public class CountdownButton extends Button implements View.OnClickListener {
     }
 
     class CountdownTimer extends CountDownTimer {
-        public CountdownTimer(long millisInFuture, long countDownInterval) { super(millisInFuture, countDownInterval); }
+        private final long countdown;
+
+        public CountdownTimer(long millisInFuture, long countDownInterval) {
+            super(millisInFuture, countDownInterval);
+            countdown = millisInFuture;
+        }
 
         @Override
         public void onTick(long millisUntilFinished) {
+            if (listener != null) {
+                listener.onCountingDown(millisUntilFinished, countdown);
+            }
             updateText(millisUntilFinished);
         }
 
         @Override
         public void onFinish() {
+            if (listener != null) {
+                listener.onCountingDown(0, countdown);
+            }
             initialize();
         }
+    }
+
+    public interface OnCountingDownListener {
+        void onCountingDown(long millisUntilFinished, long millisTotal);
     }
 
     static class Config implements Cloneable {
@@ -321,6 +338,14 @@ public class CountdownButton extends Button implements View.OnClickListener {
 
     public boolean isCountingDown() {
         return isCountingDown;
+    }
+
+    public void setOnCountingDownListener(OnCountingDownListener listener) {
+        this.listener = listener;
+    }
+
+    public OnCountingDownListener getOnCountingDownListener() {
+        return listener;
     }
     /*----------------------Getters&Setters----------------------*/
 }
