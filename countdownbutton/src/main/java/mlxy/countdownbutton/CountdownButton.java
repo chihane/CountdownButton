@@ -22,8 +22,16 @@ public class CountdownButton extends Button implements View.OnClickListener {
 
     private boolean isCountingDown = false;
 
-    public CountdownButton(Context context) { this(context, null); }
-    public CountdownButton(Context context, AttributeSet attrs) { this(context, attrs, 0); }
+    private IProvider countdownProvider;
+
+    public CountdownButton(Context context) {
+        this(context, null);
+    }
+
+    public CountdownButton(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
+
     public CountdownButton(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         super.setOnClickListener(this);
@@ -162,7 +170,11 @@ public class CountdownButton extends Button implements View.OnClickListener {
         if (millisUntilFinished <= 0) {
             setText(config.textNormal);
         } else {
-            setText(config.prefix + format(millisUntilFinished) + config.suffix);
+            if (countdownProvider == null) {
+                setText(config.prefix + format(millisUntilFinished) + config.suffix);
+            } else {
+                setText(countdownProvider.getCountdownText(millisUntilFinished, getTimeUnit()));
+            }
         }
     }
 
@@ -348,4 +360,22 @@ public class CountdownButton extends Button implements View.OnClickListener {
         return listener;
     }
     /*----------------------Getters&Setters----------------------*/
+
+    public IProvider getCountdownProvider() {
+        return countdownProvider;
+    }
+
+    public void setCountdownProvider(IProvider countdownProvider) {
+        if (this.countdownProvider != countdownProvider && countdownProvider != null) {
+            this.countdownProvider = countdownProvider;
+            invalidate();
+        }
+    }
+
+    /**
+     * Created by fanhl on 2016/6/5.
+     */
+    public interface IProvider {
+        CharSequence getCountdownText(long millisUntilFinished, int timeUnit);
+    }
 }
