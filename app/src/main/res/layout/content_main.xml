@@ -140,15 +140,15 @@
 
         <Button
             android:id="@+id/buttonNewActivity"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:text="Test countdown in background"/>
 
         <Button
-            android:onClick="custom_provider"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Custom countdown provider"/>
+            android:onClick="custom_provider"
+            android:text="Custom countdown provider"
+            android:textColor="@android:color/holo_red_light"/>
     </LinearLayout>
 </ScrollView>

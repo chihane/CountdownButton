@@ -8,6 +8,8 @@ An Android library, provides a Button with a countdown timer.
 
 <img src="http://raw.github.com/mlxy/CountdownButton/master/sample/sample2.jpg" width = "480" height = "854" alt="sample2" align=center />
 
+![device-2016-06-05-135126.png](/sample/device-2016-06-05-135126.png)
+
 ##Integration
 
 Add the following line to the `dependencies` section of `build.gradle`.
