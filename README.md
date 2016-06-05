@@ -63,6 +63,18 @@ Or cancel it at any time by:
 
 **Try not to mess with `View.setEnabled(boolean)`, I don't know what will happen.*
 
+##Custom Countdown Text Provider
+
+```java
+        countdownButton.setCountdownProvider(new CountdownButton.IProvider() {
+            @NonNull
+            @Override
+            public CharSequence getCountdownText(long millisUntilFinished, int timeUnit) {
+                // custom code
+            }
+        });
+```
+
 ###**For further details, see `app` module.**
 
 ##Author
