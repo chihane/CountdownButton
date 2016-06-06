@@ -1,7 +1,5 @@
 package mlxy.countdownbuttondemo;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
@@ -14,11 +12,7 @@ import android.text.style.ForegroundColorSpan;
 import mlxy.countdownbutton.CountdownButton;
 
 public class CustomProviderActivity extends AppCompatActivity {
-    private mlxy.countdownbutton.CountdownButton countdownButton;
-
-    public static void launch(Context context) {
-        context.startActivity(new Intent(context, CustomProviderActivity.class));
-    }
+    private CountdownButton countdownButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +24,7 @@ public class CustomProviderActivity extends AppCompatActivity {
             @NonNull
             @Override
             public CharSequence getCountdownText(long millisUntilFinished, int timeUnit) {
-                SpannableString spannableString = new SpannableString("自定义计数器文本" + millisUntilFinished / 1000);
+                SpannableString spannableString = new SpannableString("CUSTOM TEXT" + millisUntilFinished / 1000);
 
                 int index = (int) (millisUntilFinished / 1000 % spannableString.length());
                 spannableString.setSpan(new ForegroundColorSpan(ContextCompat.getColor(CustomProviderActivity.this, R.color.colorPrimary)), index, index + 1, Spanned.SPAN_USER);

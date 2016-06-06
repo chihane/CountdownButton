@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         countdownButton.setOnCountingDownListener(new CountdownButton.OnCountingDownListener() {
             @Override
             public void onCountingDown(long millisUntilFinished, long countdown) {
-                Log.d("countdownbutton", millisUntilFinished + "/" + countdown);
+                Log.d("CountdownButton", millisUntilFinished + "/" + countdown);
             }
         });
 
@@ -58,13 +58,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 setConfigs();
-            }
-        });
-
-        findViewById(R.id.buttonNewActivity).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, TestActivity.class));
             }
         });
 
@@ -103,7 +96,11 @@ public class MainActivity extends AppCompatActivity {
         countdownButton.setSuffix(edittextSuffix.getText().toString());
     }
 
-    public void custom_provider(View view) {
-        CustomProviderActivity.launch(this);
+    public void testBackground(View view) {
+        startActivity(new Intent(this, TestActivity.class));
+    }
+
+    public void testProvider(View view) {
+        startActivity(new Intent(this, CustomProviderActivity.class));
     }
 }

@@ -228,6 +228,15 @@ public class CountdownButton extends Button implements View.OnClickListener {
         void onCountingDown(long millisUntilFinished, long millisTotal);
     }
 
+    /**
+     * Created by fanhl on 2016/6/5.
+     */
+    public interface IProvider {
+        @NonNull
+        CharSequence getCountdownText(@FloatRange(from = 0) long millisUntilFinished,
+                                      int timeUnit);
+    }
+
     static class Config implements Cloneable {
         public static final CharSequence DEFAULT_TEXT = "";
         public static final CharSequence DEFAULT_PREFIX = "";
@@ -361,25 +370,14 @@ public class CountdownButton extends Button implements View.OnClickListener {
     public OnCountingDownListener getOnCountingDownListener() {
         return listener;
     }
-    /*----------------------Getters&Setters----------------------*/
 
     public IProvider getCountdownProvider() {
         return countdownProvider;
     }
 
     public void setCountdownProvider(IProvider countdownProvider) {
-        if (this.countdownProvider != countdownProvider && countdownProvider != null) {
-            this.countdownProvider = countdownProvider;
-            invalidate();
-        }
+        this.countdownProvider = countdownProvider;
+        invalidate();
     }
-
-    /**
-     * Created by fanhl on 2016/6/5.
-     */
-    public interface IProvider {
-        @NonNull
-        CharSequence getCountdownText(@FloatRange(from = 0) long millisUntilFinished,
-                                      int timeUnit);
-    }
+    /*----------------------Getters&Setters----------------------*/
 }
