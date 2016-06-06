@@ -8,6 +8,8 @@ An Android library, provides a Button with a countdown timer.
 
 <img src="http://raw.github.com/mlxy/CountdownButton/master/sample/sample2.jpg" width = "480" height = "854" alt="sample2" align=center />
 
+![device-2016-06-05-135126.png](/sample/device-2016-06-05-135126.png)
+
 ##Integration
 
 Add the following line to the `dependencies` section of `build.gradle`.
@@ -62,6 +64,18 @@ Or cancel it at any time by:
 **Only use `CountdownButton.setDisableOnCountdown(boolean)` when you really need it, it still have some glitches that I can't deal with.*
 
 **Try not to mess with `View.setEnabled(boolean)`, I don't know what will happen.*
+
+##Custom Countdown Text Provider
+
+```java
+        countdownButton.setCountdownProvider(new CountdownButton.IProvider() {
+            @NonNull
+            @Override
+            public CharSequence getCountdownText(long millisUntilFinished, int timeUnit) {
+                // custom code
+            }
+        });
+```
 
 ###**For further details, see `app` module.**
 

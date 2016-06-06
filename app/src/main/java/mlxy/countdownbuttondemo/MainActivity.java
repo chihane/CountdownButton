@@ -102,4 +102,8 @@ public class MainActivity extends AppCompatActivity {
         EditText edittextSuffix = (EditText) findViewById(R.id.edittextSuffix);
         countdownButton.setSuffix(edittextSuffix.getText().toString());
     }
+
+    public void custom_provider(View view) {
+        CustomProviderActivity.launch(this);
+    }
 }
