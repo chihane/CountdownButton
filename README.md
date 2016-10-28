@@ -35,6 +35,7 @@ Here are several attributes supported in current version:
         app:startOnClick="true"         		<!-- if countdown starts right after button clicked -->
         app:suffix=" second(s)"         		<!-- suffix of the button text when counting down -->
 		app:keepCountingDownInBackground="true" <!-- to avoid sms bomb etc. -->
+		app:identifier="button_register"        <!-- for saving background countdown status separately, see issue #8 -->
         app:timeUnit="second" />        		<!-- yes, time unit -->
         
 ##In code
@@ -48,6 +49,7 @@ Instantiate a instance by `findViewById()` or Constructor and configure with the
     countdownButton.setInterval(1);
     countdownButton.setStartOnClick(true);
     countdownButton.setDisableOnCountdown(true);
+    countdownButton.setIdentifier("button_forgot_password")
 
 `CountdownButton` is also compatible with `Button`'s methods like:
 
