@@ -3,7 +3,6 @@ package mlxy.countdownbutton;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.CountDownTimer;
-import android.support.annotation.FloatRange;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.view.View;
@@ -59,8 +58,8 @@ public class CountdownButton extends Button implements View.OnClickListener {
             config.startOnClick = typedArray.getBoolean(R.styleable.CountdownButton_startOnClick, Config.DEFAULT_START_ON_CLICK);
             config.timeUnit = typedArray.getInt(R.styleable.CountdownButton_timeUnit, Config.DEFAULT_TIMEUNIT);
             config.interval = typedArray.getInt(R.styleable.CountdownButton_interval, Config.DEFAULT_INTERVAL);
+            config.identifier = typedArray.getString(R.styleable.CountdownButton_identifier);
 
-//            config.countdown = typedArray.getInt(R.styleable.CountdownButton_countdown, Config.DEFAULT_COUNTDOWN);
             String countdownString = typedArray.getString(R.styleable.CountdownButton_countdown);
             config.countdown = countdownString != null ? Long.valueOf(countdownString) : Config.DEFAULT_COUNTDOWN;
 
@@ -92,17 +91,17 @@ public class CountdownButton extends Button implements View.OnClickListener {
     }
 
     private void saveState(boolean isCountingDown, long terminalTime) {
-        Prefs.put(getContext(), PREFS_KEY_IS_COUNTING_DOWN, isCountingDown);
-        Prefs.put(getContext(), PREFS_KEY_TERMINAL_TIME, terminalTime);
+        Prefs.put(getContext(), PREFS_KEY_IS_COUNTING_DOWN + config.getIdentifierSuffix(), isCountingDown);
+        Prefs.put(getContext(), PREFS_KEY_TERMINAL_TIME + config.getIdentifierSuffix(), terminalTime);
     }
 
     private void restoreState() {
         if (!config.keepCountingDownInBackground) return;
 
-        boolean isCountingDown = Prefs.get(getContext(), PREFS_KEY_IS_COUNTING_DOWN, false);
+        boolean isCountingDown = Prefs.get(getContext(), PREFS_KEY_IS_COUNTING_DOWN + config.getIdentifierSuffix(), false);
         if (isCountingDown) {
 
-            long terminalTime = Prefs.get(getContext(), PREFS_KEY_TERMINAL_TIME, -1L);
+            long terminalTime = Prefs.get(getContext(), PREFS_KEY_TERMINAL_TIME + config.getIdentifierSuffix(), -1L);
             if (terminalTime != -1L) {
 
                 long timeRemain = terminalTime - System.currentTimeMillis();
@@ -126,8 +125,8 @@ public class CountdownButton extends Button implements View.OnClickListener {
     }
 
     private void clearState() {
-        Prefs.delete(getContext(), PREFS_KEY_IS_COUNTING_DOWN);
-        Prefs.delete(getContext(), PREFS_KEY_TERMINAL_TIME);
+        Prefs.delete(getContext(), PREFS_KEY_IS_COUNTING_DOWN + config.getIdentifierSuffix());
+        Prefs.delete(getContext(), PREFS_KEY_TERMINAL_TIME + config.getIdentifierSuffix());
     }
 
     public void startCountdown() {
@@ -228,13 +227,9 @@ public class CountdownButton extends Button implements View.OnClickListener {
         void onCountingDown(long millisUntilFinished, long millisTotal);
     }
 
-    /**
-     * Created by fanhl on 2016/6/5.
-     */
     public interface IProvider {
         @NonNull
-        CharSequence getCountdownText(@FloatRange(from = 0) long millisUntilFinished,
-                                      int timeUnit);
+        CharSequence getCountdownText(long millisUntilFinished, int timeUnit);
     }
 
     static class Config implements Cloneable {
@@ -247,6 +242,7 @@ public class CountdownButton extends Button implements View.OnClickListener {
         public static final long DEFAULT_COUNTDOWN = 60 * 1000;
         public static final int DEFAULT_TIMEUNIT = TIMEUNIT_MILLISECOND;
         public static final int DEFAULT_INTERVAL = 1;
+        public String identifier = null;
 
         public Config() {
             init();
@@ -273,8 +269,6 @@ public class CountdownButton extends Button implements View.OnClickListener {
         long countdown;
         int timeUnit;
         int interval;
-//        public DateFormat
-
 
         @Override
         public Config clone() {
@@ -291,6 +285,9 @@ public class CountdownButton extends Button implements View.OnClickListener {
 
             return config;
         }
+
+        @NonNull
+        private String getIdentifierSuffix() {return identifier == null ? "" : ("_" + identifier);}
     }
 
     /*----------------------Getters&Setters----------------------*/
@@ -357,6 +354,14 @@ public class CountdownButton extends Button implements View.OnClickListener {
 
     public int getInterval() {
         return config.interval;
+    }
+
+    public void setIdentifier(String identifier) {
+        config.identifier = identifier;
+    }
+
+    public String getIdentifier() {
+        return config.identifier;
     }
 
     public boolean isCountingDown() {

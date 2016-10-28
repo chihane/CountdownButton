@@ -12,5 +12,6 @@
         <attr name="prefix" format="string" />
         <attr name="suffix" format="string" />
         <attr name="keepCountingDownInBackground" format="boolean" />
+        <attr name="identifier" format="string" />
     </declare-styleable>
 </resources>
